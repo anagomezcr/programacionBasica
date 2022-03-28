@@ -7,8 +7,9 @@ const teclas = {
 };
 
 document.addEventListener("keyup", dibujarTeclado);
+document.addEventListener("mousedown", inicioLinea);
+document.addEventListener("mouseup", finLinea);
 document.addEventListener("mousemove", dibujarMouse);
-document.addEventListener("mousedown", estadoMouse);
 
 
 //me guarda en la variable lo del elemento area_dibujo
@@ -59,7 +60,24 @@ function dibujarTeclado(evento) {
     }    
 }
 
-function estadoMouse(evento) {
+function inicioLinea() {
+    mouse = true;
+}
+function finLinea() {
+    mouse = false;
+}
+
+function dibujarMouse(evento) {
+    if (mouse = true ) {
+        let x = evento.layerX;
+        let y = evento.layerY;
+        dibujarLinea("red", x -1 , y -1 ,  x + 1, y + 1,  diseño);
+        console.log(click);
+        console.log( x, y, xi, yi);
+    }
+}
+
+/* function estadoMouse(evento) {
     if (evento = 1 ) {
         click = 1;
     console.log(evento);
@@ -81,5 +99,4 @@ function dibujarMouse(evento) {
         console.log(click);
         console.log( x, y, xi, yi);
     }
-}
-
+} */
