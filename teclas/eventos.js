@@ -66,21 +66,20 @@ function estadoMouse(evento) {
     console.log(click);
     }else {
         click = 0;
-    }}
+    }
+}
 
 function dibujarMouse(evento) {
     let xi = evento.clientX;
     let yi = evento.clientY;
     console.log(evento);
-    if (evento.clientX <= 300 && evento.clientY <= 300 ) {
-        if (click == 1) {
+    if (click = 1 && evento.clientX <= 300 && evento.clientY <= 300 ) {
         dibujarLinea("red", x, y, xi, yi, diseño);
         x = xi;
         y = yi;
         click -= 1;
-        console.log(click)
+        console.log(click);
         console.log( x, y, xi, yi);
-        }
     }
 }
 
