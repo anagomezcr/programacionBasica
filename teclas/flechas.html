@@ -5,10 +5,99 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dibujando con flechas</title>
+    <style>
+        body {
+            background-color: rgba(212, 211, 211, 0.336);
+        }
+        body:hover {
+            background-color: rgba(205, 214, 255, 0.425);
+        }
+        h1 {
+            text-align: center;
+            color: blue;
+        }
+        h1:hover {
+            color: black;
+        }
+        .containerPrincipal {
+            display: flex;
+            justify-content: space-evenly;
+            width: auto;
+
+        }
+        .ContainerAreaDibujo {
+            display: grid;
+            justify-items: center;
+            margin: 20px;
+        }
+        canvas {
+            border: 2px solid;
+        }
+        canvas:hover {
+            background-color: rgba(212, 211, 211, 0.336);
+        }
+        .DiseñoDeLineas {
+            display: flex;
+            width: 350px;
+            justify-content: space-evenly;
+            margin-top: 10px;
+        }
+        .containerFunctions {
+            margin-top: 50px;
+            width: auto;
+        }
+        p {
+            font-weight: bold;
+        }
+        button {
+            margin-top: 10px;
+            border-top: 1px solid gray;
+        }
+
+        @media (max-width: 650px) {
+            .containerPrincipal   {
+                display: grid;
+            }
+            .containerFunctions {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-    <canvas width="300px" height="300px" id="area_dibujo"></canvas>
-    <p>Mueve las flechas del teclado para dibujar</p>
+    <section class="containerPrincipal">
+        <div class="ContainerAreaDibujo">
+            <div>
+                <h1>Dibujando con CANVAS</h1>
+                <canvas width="300" height="300" id="area_dibujo"></canvas>
+            </div>
+            <div class="DiseñoDeLineas">
+                <p></p>
+                <input type="color" id="selecion_color" >
+                <p></p>
+                <input type="range" id="grosor" min="1" max="5" value="1">
+                <button type="button" id="reset">Limpiar ventana</button>
+            </div>
+        </div>
+        <div class="containerFunctions">
+            <p>Dibuja con el Mouse</p>
+            <button type="button" onclick="mouse()">mouse</button>
+            <p>Dibuja con las flechas del Teclado <br> para hacer una sola línea</p>
+            <input type="Number" id="inicio_X" placeholder="Eje X inicial, de 0 a 300 pixeles"><br>
+            <input type="Number" id="inicio_Y" placeholder="Eje Y inicial, de 0 a 300 pixeles"><br>
+            <button type="button" onclick="teclado()">teclado</button>
+            <p>Dibuja con coordenadas <br> para hacer fíguras</p>
+            <input type="Number" id="cordenadaX" placeholder="Eje X inicial, de 0 a 300 pixeles"><br>
+            <input type="Number" id="cordenadaY" placeholder="Eje Y inicial, de 0 a 300 píxeles"><br>
+            <input type="Number" id="cordenadaXf" placeholder="Eje X final, de 0 a 300 píxeles"><br>
+            <input type="Number" id="cordenadaYf" placeholder="Eje Y final, de 0 a 300 píxeles"><br>
+            <button type="button" onclick="dibujarCoordenada()">Envíar coordenadas</button><br>
+        </div>
+    </section>
+
+
+
+
     <script src="./eventos.js"></script>
 </body>
 </html>
