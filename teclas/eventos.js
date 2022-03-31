@@ -18,6 +18,8 @@ function dibujarLinea(color, xinicial, yinicial, xfinal, yfinal, lienzo) {
     lienzo.strokeStyle = colorDeLinea.value;
     lienzo.lineWidth = grosor.value;
     lienzo.moveTo(xinicial, yinicial);
+    lienzo.lineCap = "round";
+    lienzo.lineJoin = "round";
     lienzo.lineTo(xfinal, yfinal);
     lienzo.stroke();
     lienzo.closePath();
@@ -85,8 +87,9 @@ function mouse() {
     }
 
     function dibujarMouse(evento) {
-        let xi = evento.layerX;
-        let yi = evento.layerY;
+        console.log(evento);
+        let xi = evento.offsetX;
+        let yi = evento.offsetY;
         if (mouse != false) {
             dibujarLinea(colorDeLinea, xi +1, yi+1, xi-1, yi-1, diseño);
         }
