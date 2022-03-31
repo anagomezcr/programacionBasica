@@ -81,7 +81,7 @@ function mouse() {
     function inicioLinea() {
         mouse = true;
     }
-
+ 
     function finLinea() {
         mouse = false;
     }
@@ -94,6 +94,26 @@ function mouse() {
             dibujarLinea(colorDeLinea, xi +1, yi+1, xi-1, yi-1, diseño);
         }
     }
+}
+
+function touchDibujar(evento) {
+    document.addEventListener("touchstar", inicioDibujo);
+    document.addEventListener("touchmove", dibujatouch);
+    
+    let touch = false
+    function inicioDibujo() {
+        touch = true;
+    }
+
+    function dibujatouch(evento) {
+        console.log(evento);
+        let xi = evento.offsetX;
+        let yi = evento.offsetY;
+        if (touch != false) {
+            dibujarLinea(colorDeLinea, xi +1, yi+1, xi-1, yi-1, diseño);
+        }
+    }
+
 }
 
 function dibujarCoordenada() {
