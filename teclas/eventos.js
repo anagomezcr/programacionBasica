@@ -3,7 +3,6 @@
     const botonBorrar = document.getElementById("reset");
     botonBorrar.addEventListener("click", limpiarCanvas);
     let diseño = hojaDibujo.getContext("2d");
-    console.log(hojaDibujo.width , hojaDibujo.height)
     let grosor = document.getElementById("grosor")
     let colorDeLinea = document.getElementById("selecion_color")
     let colorLinea = colorDeLinea.value;
@@ -86,8 +85,8 @@ function mouse() {
     }
 
     function dibujarMouse(evento) {
-        let xi = evento.clientX;
-        let yi = evento.clientY;
+        let xi = evento.layerX;
+        let yi = evento.layerY;
         if (mouse != false) {
             dibujarLinea(colorDeLinea, xi +1, yi+1, xi-1, yi-1, diseño);
         }

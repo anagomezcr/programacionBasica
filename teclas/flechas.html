@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dibujando con flechas</title>
     <style>
-        body {
-            background-color: rgba(212, 211, 211, 0.336);
-        }
         body:hover {
-            background-color: rgba(205, 214, 255, 0.425);
+            background-color: rgba(212, 211, 211, 0.336);
+
         }
         h1 {
             text-align: center;
@@ -21,14 +19,15 @@
         }
         .containerPrincipal {
             display: flex;
-            justify-content: space-evenly;
+            justify-content: center;
             width: auto;
 
         }
         .ContainerAreaDibujo {
             display: grid;
             justify-items: center;
-            margin: 20px;
+            margin: 50px;
+            border: 2px solid
         }
         canvas {
             border: 2px solid;
@@ -42,8 +41,11 @@
             justify-content: space-evenly;
             margin-top: 10px;
         }
+        .DiseñoDeLineas button {
+            margin-bottom: 20px;
+        }
         .containerFunctions {
-            margin-top: 50px;
+            margin-top: 15px;
             width: auto;
         }
         p {
@@ -53,13 +55,35 @@
             margin-top: 10px;
             border-top: 1px solid gray;
         }
+        h2 {
+            display: none;
+            margin-bottom: 0;
+        }
 
         @media (max-width: 650px) {
             .containerPrincipal   {
                 display: grid;
             }
-            .containerFunctions {
+            .ContainerAreaDibujo {
+
+            }
+            .noVisualMobil, p {
                 display: none;
+            }
+            .containerFunctions {
+                margin-top: 0;
+               justify-self: center;  
+               text-align: center;        
+            }
+            .containerFunctions button {
+                width: 200px;
+                height: 100px;
+                color: rgba(128, 128, 128, 0);
+                background-color: rgba(128, 128, 128, 0.623);
+                border-radius: 5px;
+            }
+            h2 {
+                display: block;
             }
         }
     </style>
@@ -80,18 +104,21 @@
             </div>
         </div>
         <div class="containerFunctions">
+            <h2>INICIAR</h2><br>
             <p>Dibuja con el Mouse</p>
             <button type="button" onclick="mouse()">mouse</button>
-            <p>Dibuja con las flechas del Teclado <br> para hacer una sola línea</p>
-            <input type="Number" id="inicio_X" placeholder="Eje X inicial, de 0 a 300 pixeles"><br>
-            <input type="Number" id="inicio_Y" placeholder="Eje Y inicial, de 0 a 300 pixeles"><br>
-            <button type="button" onclick="teclado()">teclado</button>
-            <p>Dibuja con coordenadas <br> para hacer fíguras</p>
-            <input type="Number" id="cordenadaX" placeholder="Eje X inicial, de 0 a 300 pixeles"><br>
-            <input type="Number" id="cordenadaY" placeholder="Eje Y inicial, de 0 a 300 píxeles"><br>
-            <input type="Number" id="cordenadaXf" placeholder="Eje X final, de 0 a 300 píxeles"><br>
-            <input type="Number" id="cordenadaYf" placeholder="Eje Y final, de 0 a 300 píxeles"><br>
-            <button type="button" onclick="dibujarCoordenada()">Envíar coordenadas</button><br>
+            <div class="noVisualMobil">
+                <p>Dibuja con las flechas del Teclado <br> para hacer una sola línea</p>
+                <input type="Number" id="inicio_X" placeholder="Eje X inicial, de 0 a 300 pixeles"><br>
+                <input type="Number" id="inicio_Y" placeholder="Eje Y inicial, de 0 a 300 pixeles"><br>
+                <button type="button" onclick="teclado()">teclado</button>
+                <p>Dibuja con coordenadas <br> para hacer fíguras</p>
+                <input type="Number" id="cordenadaX" placeholder="Eje X inicial, de 0 a 300 pixeles"><br>
+                <input type="Number" id="cordenadaY" placeholder="Eje Y inicial, de 0 a 300 píxeles"><br>
+                <input type="Number" id="cordenadaXf" placeholder="Eje X final, de 0 a 300 píxeles"><br>
+                <input type="Number" id="cordenadaYf" placeholder="Eje Y final, de 0 a 300 píxeles"><br>
+                <button type="button" onclick="dibujarCoordenada()">Envíar coordenadas</button><br>
+            </div>    
         </div>
     </section>
 
