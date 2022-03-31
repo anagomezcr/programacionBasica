@@ -72,7 +72,6 @@
             display: flex;
             justify-content: center;
             width: auto;
-
         }
         .ContainerAreaDibujo {
             display: grid;
@@ -111,12 +110,10 @@
             display: none;
             margin-bottom: 0;
         }
-
         @media (max-width: 650px) {
             .containerPrincipal   {
                 display: grid;
             }
-
             .containerFunctions {
                justify-self: center;
                display: none;
@@ -130,21 +127,19 @@
 <body>
     <section class="containerPrincipal">
         <div class="ContainerAreaDibujo">
-            <div>
-                <h1>Dibujando con CANVAS</h1>
-                <canvas width="300" height="300" id="area_dibujo"></canvas>
-            </div>
+            <h1>Dibujando con CANVAS</h1>
+            <canvas width="300" height="300" id="area_dibujo"></canvas>
             <div class="DiseñoDeLineas"><p></p>
-                <input type="color" id="selecion_color" ><p></p>
+                <input type="color" id="selecion_color"><p></p>
                 <input type="range" id="grosor" min="1" max="5" value="1">
                 <button type="button" id="reset">Limpiar ventana</button>
             </div>
         </div>
-        <div style="margin-top: 40px">
+        <div style="margin: 40px 40px ">
             <div class="containerFunctions">
                     <p>Dibuja con el Mouse</p>
                     <button type="button" onclick="mouse()">mouse</button>
-                    <p>Dibuja con las flechas del Teclado <br> para hacer una sola línea</p>
+                    <p>Dibuja con las flechas del <br> Teclado para una sola línea</p>
                     <input type="Number" id="inicio_X" placeholder="Eje X inicial, de 0 a 300 pixeles"><br>
                     <input type="Number" id="inicio_Y" placeholder="Eje Y inicial, de 0 a 300 pixeles"><br>
                     <button type="button" onclick="teclado()">teclado</button>

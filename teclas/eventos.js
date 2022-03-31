@@ -1,6 +1,6 @@
     //me guarda en la variable lo del elemento area_dibujo
     const hojaDibujo = document.getElementById("area_dibujo");
-    let botonBorrar = document.getElementById("reset");
+    let botonBorrar = document.getElementById("reset");  
     botonBorrar.addEventListener("click", limpiarCanvas);
     let diseño = hojaDibujo.getContext("2d");
     let grosor = document.getElementById("grosor")
@@ -38,13 +38,13 @@ function teclado() {
     };
 
     document.addEventListener("keydown", dibujarTeclado); //se llama cada vez que se presiona una flecha
-    //getContex perpmite obtener el area del dibujo
+    //valores iniciales
     let inicioX =  (document.getElementById("inicio_X"))
     let x = Number(inicioX.value);
     let inicioY =  (document.getElementById("inicio_Y"))
     let y = Number (inicioY.value);
 
-    dibujarLinea(colorLinea.value, x, y, x+1 , y+1, diseño)
+    dibujarLinea(colorLinea.value, x, y, x+1 , y+1, diseño)   //hace un punto de partida visible al usuario
     //las teclas que van a hacer el dibujo
     function dibujarTeclado(evento) {
         let movimiento = 10;
@@ -90,7 +90,6 @@ function mouse() {
     }
 
     function dibujarMouse(evento) {
-        console.log(evento);
         let xi = evento.offsetX;
         let yi = evento.offsetY;
         if (mouse != false) {
@@ -105,5 +104,4 @@ function dibujarCoordenada() {
     let cordenadaXf = document.getElementById("cordenadaXf")
     let cordenadaYf = document.getElementById("cordenadaYf")
     dibujarLinea(colorDeLinea, cordenadaX.value, cordenadaY.value, cordenadaXf.value, cordenadaYf.value, diseño)
-    console.log(cordenadaX.value, cordenadaY.value, cordenadaXf.value, cordenadaYf.value)
 }
