@@ -1,40 +1,43 @@
     //me guarda en la variable lo del elemento area_dibujo
     const hojaDibujo = document.getElementById("area_dibujo");
-    const botonBorrar = document.getElementById("reset");
+    let botonBorrar = document.getElementById("reset");
     botonBorrar.addEventListener("click", limpiarCanvas);
     let diseño = hojaDibujo.getContext("2d");
     let grosor = document.getElementById("grosor")
     let colorDeLinea = document.getElementById("selecion_color")
     let colorLinea = colorDeLinea.value;
     
+// FUNCIONES 
+//--------------------------------------------------------
+//evento que inicia y finaliza cada trazo (condiciones de trazo)
+function dibujarLinea(color, xinicial, yinicial, xfinal, yfinal, lienzo) {
+    lienzo.beginPath();                         //Inicia trazo
+    lienzo.strokeStyle = colorDeLinea.value;    //le da color al contorno fillStyle le da color al relleno
+    lienzo.lineWidth = grosor.value;            //Grosor del trazo
+    lienzo.moveTo(xinicial, yinicial);          //Cordenadas iniciales
+    lienzo.lineCap = "round";                   //borde el final de trazo
+    lienzo.lineJoin = "round";                  //bordea inicio de trazo
+    lienzo.lineTo(xfinal, yfinal);              //ancho y alto
+    lienzo.stroke();                            //dibuja figura vacia fillReact figura con relleno
+    lienzo.closePath();                         //final trazo
+}
+//--------------------------------------------------------
 //borra todo el contenido    
 function limpiarCanvas() {
-   diseño.clearRect(0, 0, hojaDibujo.width, hojaDibujo.height, diseño);
-}
-
-//evento que inicia y finaliza cada trazo
-function dibujarLinea(color, xinicial, yinicial, xfinal, yfinal, lienzo) {
-    lienzo.beginPath();
-    lienzo.strokeStyle = colorDeLinea.value;
-    lienzo.lineWidth = grosor.value;
-    lienzo.moveTo(xinicial, yinicial);
-    lienzo.lineCap = "round";
-    lienzo.lineJoin = "round";
-    lienzo.lineTo(xfinal, yfinal);
-    lienzo.stroke();
-    lienzo.closePath();
-}
-
+    diseño.clearRect(0, 0, hojaDibujo.width, hojaDibujo.height, diseño);
+ }
+//--------------------------------------------------------
+//dibuja con flechas del teclado    
 function teclado() {
-//valores de teclado
+    //valores de teclado
     const teclas = {
-        ArrowUp: 38,
+        ArrowUp:    38,
         ArrowRight: 39,
-        ArrowLeft: 37,
-        ArrowDown: 40,
+        ArrowLeft:  37,
+        ArrowDown:  40,
     };
 
-    document.addEventListener("keydown", dibujarTeclado);
+    document.addEventListener("keydown", dibujarTeclado); //se llama cada vez que se presiona una flecha
     //getContex perpmite obtener el area del dibujo
     let inicioX =  (document.getElementById("inicio_X"))
     let x = Number(inicioX.value);
@@ -42,7 +45,7 @@ function teclado() {
     let y = Number (inicioY.value);
 
     dibujarLinea(colorLinea.value, x, y, x+1 , y+1, diseño)
-//las teclas que van a hacer el dibujo
+    //las teclas que van a hacer el dibujo
     function dibujarTeclado(evento) {
         let movimiento = 10;
         switch (evento.keyCode) {
@@ -69,7 +72,7 @@ function teclado() {
         }    
     }
 }
-/*
+//--------------------------------------------------------
 function mouse() {
 
     document.addEventListener("mousedown", inicioLinea);
@@ -95,27 +98,7 @@ function mouse() {
         }
     }
 }
-
-function touchDibujar(evento) {
-    document.addEventListener("touchstar", inicioDibujo);
-    document.addEventListener("touchmove", dibujatouch);
-    
-    let touch = false
-    function inicioDibujo() {
-        touch = true;
-    }
-
-    function dibujatouch(evento) {
-        console.log(evento);
-        let xi = evento.offsetX;
-        let yi = evento.offsetY;
-        if (touch != false) {
-            dibujarLinea(colorDeLinea, xi +1, yi+1, xi-1, yi-1, diseño);
-        }
-    }
-
-}
-*/
+//--------------------------------------------------------
 function dibujarCoordenada() {
     let cordenadaX = document.getElementById("cordenadaX")
     let cordenadaY = document.getElementById("cordenadaY")
@@ -123,101 +106,24 @@ function dibujarCoordenada() {
     let cordenadaYf = document.getElementById("cordenadaYf")
     dibujarLinea(colorDeLinea, cordenadaX.value, cordenadaY.value, cordenadaXf.value, cordenadaYf.value, diseño)
     console.log(cordenadaX.value, cordenadaY.value, cordenadaXf.value, cordenadaYf.value)
-
 }
 
-let miCanvas = document.querySelector('#area_dibujo');
-let lineas = [];
-let correccionX = 0;
-let correccionY = 0;
-let pintarLinea = false;
-// Marca el nuevo punto
-let nuevaPosicionX = 0;
-let nuevaPosicionY = 0;
+function touch(evento) {
+    console.log(evento);
+    document.addEventListener("touchstar", iniciodibujo);
+    document.addEventListener("touchmove", dibujotouch);
 
-let posicion = miCanvas.getBoundingClientRect()
-correccionX = posicion.x;
-correccionY = posicion.y;
-
-miCanvas.width = 500;
-miCanvas.height = 500;
-
-//======================================================================
-// FUNCIONES
-//======================================================================
-
-/**
- * Funcion que empieza a dibujar la linea
- */
-function empezarDibujo () {
-    pintarLinea = true;
-    lineas.push([]);
-};
-
-/**
- * Funcion que guarda la posicion de la nueva línea
- */
-function guardarLinea() {
-    lineas[lineas.length - 1].push({
-        x: nuevaPosicionX,
-        y: nuevaPosicionY
-    });
-}
-
-/**
- * Funcion dibuja la linea
- */
-function dibujarLinea (event) {
-    event.preventDefault();
-    if (pintarLinea) {
-        let ctx = miCanvas.getContext('2d')
-        // Estilos de linea
-        ctx.lineJoin = ctx.lineCap = 'round';
-        ctx.lineWidth = 10;
-        // Color de la linea
-        ctx.strokeStyle = 'black';
-        // Marca el nuevo punto
-        if (event.changedTouches == undefined) {
-            // Versión ratón
-            nuevaPosicionX = event.layerX;
-            nuevaPosicionY = event.layerY;
-        } else {
-            // Versión touch, pantalla tactil
-            nuevaPosicionX = event.changedTouches[0].pageX - correccionX;
-            nuevaPosicionY = event.changedTouches[0].pageY - correccionY;
-        }
-        // Guarda la linea
-        guardarLinea();
-        // Redibuja todas las lineas guardadas
-        ctx.beginPath();
-        lineas.forEach(function (segmento) {
-            ctx.moveTo(segmento[0].x, segmento[0].y);
-            segmento.forEach(function (punto, index) {
-                ctx.lineTo(punto.x, punto.y);
-            });
-        });
-        ctx.stroke();
+    let touch = false;
+    function iniciodibujo(evento) {
+        touch = true;
     }
+
+    function dibujotouch(evento) {
+        let x = evento.clientX;
+        let y = evento.clientY;
+        if (touch = true) {
+            dibujarLinea("blue", x, y, x+1, y+1, diseño)
+        }
+    }
+
 }
-
-/**
- * Funcion que deja de dibujar la linea
- */
-function pararDibujar () {
-    pintarLinea = false;
-    guardarLinea();
-}
-
-//======================================================================
-// EVENTOS
-//======================================================================
-
-// Eventos raton
-miCanvas.addEventListener('mousedown', empezarDibujo, false);
-miCanvas.addEventListener('mousemove', dibujarLinea, false);
-miCanvas.addEventListener('mouseup', pararDibujar, false);
-
-// Eventos pantallas táctiles
-miCanvas.addEventListener('touchstart', empezarDibujo, false);
-miCanvas.addEventListener('touchmove', dibujarLinea, false);
-
