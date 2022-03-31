@@ -107,23 +107,3 @@ function dibujarCoordenada() {
     dibujarLinea(colorDeLinea, cordenadaX.value, cordenadaY.value, cordenadaXf.value, cordenadaYf.value, diseño)
     console.log(cordenadaX.value, cordenadaY.value, cordenadaXf.value, cordenadaYf.value)
 }
-
-function touch(evento) {
-    console.log(evento);
-    document.addEventListener("touchstar", iniciodibujo);
-    document.addEventListener("touchmove", dibujotouch);
-
-    let touch = false;
-    function iniciodibujo(evento) {
-        touch = true;
-    }
-
-    function dibujotouch(evento) {
-        let x = evento.clientX;
-        let y = evento.clientY;
-        if (touch = true) {
-            dibujarLinea("blue", x, y, x+1, y+1, diseño)
-        }
-    }
-
-}
