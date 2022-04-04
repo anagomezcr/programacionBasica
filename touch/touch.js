@@ -1,74 +1,22 @@
-function startup() {
-    var el = document.getElementsByTagName("canvas")[0];
-    el.addEventListener("touchstart", handleStart, false);
-    el.addEventListener("touchend", handleEnd, false);
-    el.addEventListener("touchcancel", handleCancel, false);
-    el.addEventListener("touchleave", handleLeave, false);
-    el.addEventListener("touchmove", handleMove, false);
-  }
+canvasEl = document.getElementById('canvas');
+canvas = canvasEl.getContext('2d');
 
-  function handleStart(evt) {
-    evt.preventDefault();
-    var el = document.getElementsByTagName("canvas")[0];
-    var ctx = el.getContext("2d");
-    var touches = evt.changedTouches;
-  
-    for (var i=0; i<touches.length; i++) {
-      ongoingTouches.push(touches[i]);
-      var color = colorForTouch(touches[i]);
-      ctx.fillStyle = color;
-      ctx.fillRect(touches[i].pageX-2, touches[i].pageY-2, 4, 4);
-    }
-  }
+canvasEl.addEventListener('touchstart', function(e){
+  draw(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+  draw(e.changedTouches[1].pageX, e.changedTouches[1].pageY);
+});
 
-  function handleMove(evt) {
-  evt.preventDefault();
-  var el = document.getElementsByTagName("canvas")[0];
-  var ctx = el.getContext("2d");
-  var touches = evt.changedTouches;
+canvasEl.addEventListener('touchmove', function(e){
+  e.preventDefault();
+  draw(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+  draw(e.changedTouches[1].pageX, e.changedTouches[1].pageY);
+});
 
-  ctx.lineWidth = 4;
+draw = function(x, y){
+  canvas.beginPath();
 
-  for (var i=0; i<touches.length; i++) {
-    var color = colorForTouch(touches[i]);
-    var idx = ongoingTouchIndexById(touches[i].identifier);
-
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.moveTo(ongoingTouches[idx].pageX, ongoingTouches[idx].pageY);
-    ctx.lineTo(touches[i].pageX, touches[i].pageY);
-    ctx.closePath();
-    ctx.stroke();
-    ongoingTouches.splice(idx, 1, touches[i]);  // swap in the new touch record
-  }
-}
-
-function handleEnd(evt) {
-  evt.preventDefault();
-  var el = document.getElementsByTagName("canvas")[0];
-  var ctx = el.getContext("2d");
-  var touches = evt.changedTouches;
-
-  ctx.lineWidth = 4;
-
-  for (var i=0; i<touches.length; i++) {
-    var color = colorForTouch(touches[i]);
-    var idx = ongoingTouchIndexById(touches[i].identifier);
-
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.moveTo(ongoingTouches[i].pageX, ongoingTouches[i].pageY);
-    ctx.lineTo(touches[i].pageX, touches[i].pageY);
-    ongoingTouches.splice(i, 1);  // remove it; we're done
-  }
-}
-
-
-function handleCancel(evt) {
-  evt.preventDefault();
-  var touches = evt.changedTouches;
-
-  for (var i=0; i<touches.length; i++) {
-    ongoingTouches.splice(i, 1);  // remove it; we're done
-  }
-}
+  canvas.storkeStyle = '#ff8330';
+  canvas.arc(x, y, 2, 0, 2 * Math.PI);
+  canvas.fill();
+  canvas.closePath();
+};
