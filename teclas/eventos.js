@@ -10,7 +10,7 @@
 // FUNCIONES 
 //--------------------------------------------------------
 //evento que inicia y finaliza cada trazo (condiciones de trazo)
-function dibujarLinea(color, xinicial, yinicial, xfinal, yfinal, lienzo) {
+dibujarLinea = (color, xinicial, yinicial, xfinal, yfinal, lienzo) => {
     lienzo.beginPath();                         //Inicia trazo
     lienzo.strokeStyle = colorDeLinea.value;    //le da color al contorno fillStyle le da color al relleno
     lienzo.lineWidth = grosor.value;            //Grosor del trazo
@@ -37,7 +37,7 @@ function teclado() {
         ArrowDown:  40,
     };
 
-    document.addEventListener("keydown", dibujarTeclado); //se llama cada vez que se presiona una flecha
+    document.addEventListener("keydown", dibujarTeclado ); //se llama cada vez que se presiona una flecha
     //valores iniciales
     let inicioX =  (document.getElementById("inicio_X"))
     let x = Number(inicioX.value);
@@ -75,27 +75,17 @@ function teclado() {
 //--------------------------------------------------------
 function mouse() {
 
-    document.addEventListener("mousedown", inicioLinea);
-    document.addEventListener("mouseup", finLinea);
-    document.addEventListener("mousemove", dibujarMouse);
-
     let mouse = false;
+    hojaDibujo.addEventListener("mousedown", () => {mouse = true;});
+    hojaDibujo.addEventListener("mouseup", () => {mouse = false;});
 
-    function inicioLinea() {
-        mouse = true;
-    }
- 
-    function finLinea() {
-        mouse = false;
-    }
-
-    function dibujarMouse(evento) {
+    hojaDibujo.addEventListener('mousemove', (evento) => {
         let xi = evento.offsetX;
         let yi = evento.offsetY;
         if (mouse != false) {
             dibujarLinea(colorDeLinea, xi +1, yi+1, xi-1, yi-1, diseño);
         }
-    }
+    });
 }
 //--------------------------------------------------------
 function dibujarCoordenada() {
